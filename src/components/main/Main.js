@@ -20,14 +20,13 @@ const columns = [
     },
     {
         title: '状态',
-        dataIndex: 'completed',
-        key: 'completed',
+        dataIndex: 'status',
+        key: 'status',
         width: '100px',
         align: 'center'
     },
     {
-        title: '操作',
-        key: 'detail',        
+        title: '操作',    
         align: 'center',
         width: '250px',
         render: () => (
@@ -39,13 +38,22 @@ const columns = [
     },
 ];
 
+const dataTransform = (events) => {
+    events.map(event => {
+        return event.status = event.completed === true ? '已完成' : '未完成';
+    });
+}
+
 function Main(props) {
+    dataTransform(props.events);
+
     return (
         <div className={styles.main}>
             <Table 
             pagination={false}
             size='large'
             tableLayout='fixed'
+            rowKey={record => record.id}
             
             columns={columns}
             dataSource={props.events}/>
