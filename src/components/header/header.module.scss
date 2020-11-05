@@ -3,5 +3,14 @@
 .header {
     width: $page-width;
     height: $header-height;
-    background-color: $color;
+
+    display: flex;
+    justify-content: space-between;
+
+    .homeList, .search {
+        font-size: 32px;
+        line-height: 80px;
+    }
 }
+
+

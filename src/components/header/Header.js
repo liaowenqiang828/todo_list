@@ -1,10 +1,13 @@
 import CssModules from 'react-css-modules';
 import styles from './header.module.scss';
+import { UnorderedListOutlined, SearchOutlined } from '@ant-design/icons';
 
 function Header(props) {
     return (
         <div className={styles.header}>
-            hello world
+            <UnorderedListOutlined className={styles.homeList}/>
+            <h2>Todo List Page</h2>
+            <SearchOutlined className={styles.search}/>
         </div>
     )
 }
