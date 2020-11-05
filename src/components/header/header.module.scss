@@ -7,9 +7,27 @@
     display: flex;
     justify-content: space-between;
 
-    .homeList, .search {
+    .homeList {
         font-size: 32px;
         line-height: 80px;
+        height: 65px;
+    }
+
+    .search {
+        @extend .homeList;
+        width: 190px;
+        height: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &Input { 
+            height: 24px;       
+        }
+
+        &Button {
+            @extend .homeList;
+        }
     }
 }
 

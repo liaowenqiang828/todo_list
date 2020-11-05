@@ -7,7 +7,10 @@ function Header(props) {
         <div className={styles.header}>
             <UnorderedListOutlined className={styles.homeList}/>
             <h2>Todo List Page</h2>
-            <SearchOutlined className={styles.search}/>
+            <div className={styles.search}>
+                <input placeholder='输入事件名称' className={styles.searchInput}/>
+                <SearchOutlined className={styles.searchButton}/>
+            </div>
         </div>
     )
 }
