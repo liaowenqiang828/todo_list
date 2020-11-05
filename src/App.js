@@ -9,14 +9,13 @@ class App extends Component {
 
   componentDidMount() {
     this.props.getAllDataAction();
-    console.log('.....');
   }
 
   render() {
     return (
       <div className='app'>
         <Header />
-        <Main />
+        <Main events={this.props.events} />
       </div>
     )
   }
@@ -30,4 +29,10 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = (state) => {
+  return {
+    events: state.data,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
