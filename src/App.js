@@ -1,13 +1,17 @@
+import React, { Component } from 'react';
 import Header from './components/header/Header';
-import CssModules from 'react-css-modules';
-import styles from './app.module.scss';
+import Main from './components/main/Main';
+import './App.css';
 
-function App() {
-  return (
-    <div className={styles.app}>
-      <Header />
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className='app'>
+        <Header />
+        <Main />
+      </div>
+    )
+  }
 }
 
-export default CssModules(App, styles);
+export default App;
