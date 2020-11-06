@@ -1,7 +1,7 @@
 import React from 'react';
 import CssModules from 'react-css-modules';
 import styles from './main.module.scss';
-import { Table } from 'antd';
+import { Button, Table } from 'antd';
 
 const columns = [
     {
@@ -29,8 +29,8 @@ const columns = [
         width: '250px',
         render: () => (
             <div className={styles.operation}>
-                <a href='www.baidu.com'>编辑</a>
-                <a href='www.baidu.com'>删除</a>
+                <Button>编辑</Button>
+                <Button>删除</Button>
             </div>
         ),
     },
