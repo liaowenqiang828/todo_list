@@ -5,7 +5,7 @@ const getAllDataAction = () => {
     return (dispatch) => {
         axios.get("http://localhost:8080/lists")
         .then(response => {
-            const data = response.data[0];
+            const data = response.data;
             dispatch(updateDataAction(data));
         })
     }

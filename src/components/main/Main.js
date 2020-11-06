@@ -1,6 +1,6 @@
 import React from 'react';
 import CssModules from 'react-css-modules';
-import styles from './Main.module.scss';
+import styles from './main.module.scss';
 import { Table } from 'antd';
 
 const columns = [
@@ -14,14 +14,12 @@ const columns = [
     {
         title: '事件名称',
         dataIndex: 'detail',
-        key: 'detail',
         width: '400px',
         align: 'center'
     },
     {
         title: '状态',
         dataIndex: 'status',
-        key: 'status',
         width: '100px',
         align: 'center'
     },
@@ -45,7 +43,8 @@ const dataTransform = (events) => {
 }
 
 function Main(props) {
-    dataTransform(props.events);
+    dataTransform(props.events.flat());
+    const events = props.events.flat();
 
     return (
         <div className={styles.main}>
@@ -54,9 +53,8 @@ function Main(props) {
             size='large'
             tableLayout='fixed'
             rowKey={record => record.id}
-            
             columns={columns}
-            dataSource={props.events}/>
+            dataSource={events}/>
         </div>
     )
 }

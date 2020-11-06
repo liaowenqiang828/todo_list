@@ -8,7 +8,7 @@ function reducer(state, action) {
 
     switch(action.type) {
         case types.UPDATE_ALL_DATA:
-            return {...state, data: [...state.data, action.payload]}
+            return {...state, data: [...state.data, ...action.payload]}
         default:
             return state;
 
