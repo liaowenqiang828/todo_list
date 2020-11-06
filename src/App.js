@@ -4,7 +4,8 @@ import Main from './components/main/Main';
 import './App.css';
 import getAllDataAction from './store/action/getAllDataAction';
 import {connect} from 'react-redux';
-import AddButton from './components/addEvent/AddEvent';
+import AddEvent from './components/addEvent/AddEvent';
+import Footer from './components/footer/Footer';
 
 class App extends Component {
 
@@ -16,8 +17,9 @@ class App extends Component {
     return (
       <div className='app'>
         <Header />
-        <AddButton />
+        <AddEvent />
         <Main events={this.props.events} />
+        <Footer />
       </div>
     )
   }
