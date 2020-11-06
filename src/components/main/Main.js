@@ -30,6 +30,7 @@ const columns = [
         render: () => (
             <div className={styles.operation}>
                 <Button>编辑</Button>
+                <Button>完成</Button>
                 <Button>删除</Button>
             </div>
         ),
