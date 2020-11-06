@@ -3,11 +3,16 @@ import { Button, Input } from 'antd';
 import styles from "./addEvent.css";
 import { connect } from "react-redux";
 import eventInputActionCreator from '../../store/action/eventInputActionCreator';
+import addEventData from '../../store/action/eventAddAction';
 
 class AddButton extends Component {
 
     updateInputValue = (e) => {
-        this.props.eventInputAction(e.target.value)
+        this.props.eventInputAction(e.target.value);
+    }
+
+    addEvent = () => {
+        this.props.addEvent(this.props.inputValue);
     }
 
     render() {
@@ -19,6 +24,7 @@ class AddButton extends Component {
                 />
                 <Button
                     type='primary'
+                    onClick={this.addEvent}
                 >
                     添加事件
                 </Button>
@@ -36,7 +42,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         eventInputAction: (inputValue) =>  {
-            dispatch(eventInputActionCreator(inputValue))
+            dispatch(eventInputActionCreator(inputValue));
+        },
+
+        addEvent: (eventValue) => {
+            dispatch(addEventData(eventValue));
         }
     }
 

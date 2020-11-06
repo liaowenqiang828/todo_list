@@ -9,7 +9,7 @@ function reducer(state, action) {
 
     switch(action.type) {
         case types.UPDATE_ALL_DATA:
-            return {...state, data: [...state.data, ...action.payload]}
+            return {...state, data: [...action.payload]}
         case types.INPUT_VALUE_CHANGE:
             return {...state, inputValue: action.inputValue}
         default:
