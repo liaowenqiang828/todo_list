@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Input } from 'antd';
-import styles from "./addEvent.css";
+import "./addEvent.css";
 import { connect } from "react-redux";
 import eventInputActionCreator from '../../store/action/eventInputActionCreator';
 import addEventData from '../../store/action/eventAddAction';
@@ -17,7 +17,7 @@ class AddButton extends Component {
 
     render() {
         return (
-            <div className={styles.addEvent}>
+            <div className='addEvent'>
                 <Input 
                     placeholder='请输入事件名称'
                     onChange={e => this.updateInputValue(e)}
