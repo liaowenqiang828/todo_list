@@ -9,10 +9,9 @@ class Main extends Component {
     columns = [
         {
             title:'序号',
-            dataIndex: 'id',
-            key: 'id',
             width: '50px',
-            align: 'center'
+            align: 'center',
+            render: (text, record, index) => index + 1,
         },
         {
             title: '事件名称',
@@ -55,7 +54,7 @@ class Main extends Component {
     handleChangeStatusClick(id, completed) {
         console.log(id);
         console.log(completed);
-        
+
         this.props.changeStatusById(id, completed);
     }
 
