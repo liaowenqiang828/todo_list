@@ -9,7 +9,7 @@ class EventList extends Component {
     columns = [
         {
             title:'序号',
-            width: '50px',
+            width: '70px',
             align: 'center',
             render: (text, record, index) => index + 1,
         },
@@ -70,7 +70,12 @@ class EventList extends Component {
         return (
             <div className='main'>
                 <Table 
-                pagination={false}
+                pagination={{
+                    current: 1,
+                    pageSize: 7,
+                    defaultCurrent: 1,
+                    hideOnSinglePage: true
+                }}
                 size='large'
                 tableLayout='fixed'
                 rowKey={record => record.id}
