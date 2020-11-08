@@ -18,7 +18,7 @@ class App extends Component {
       <div className='app'>
         <Header />
         <AddEvent />
-        <Main events={this.props.events} />
+        <Main />
         <Footer />
       </div>
     )

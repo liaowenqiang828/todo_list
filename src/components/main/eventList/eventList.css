@@ -1,0 +1,11 @@
+.main {
+    width: 800px;
+    height: 600px;
+    font-size: 1.2em;
+}
+
+.operation {
+    display: flex;
+    vertical-align: middle;
+    justify-content: space-evenly;
+}
