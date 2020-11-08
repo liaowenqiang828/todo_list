@@ -1,10 +1,17 @@
 import axios from "axios";
 import updateDataActionCreator from "./updateDataActionCreator";
 
-const deleteEventByIdAction = (id) => {
+const changeStatusByIdAction = (id, completed) => {
     return (dispatch) => {
-        axios.delete(
-            'http://localhost:8080/event/' + id
+        axios(
+            'http://localhost:8080/event',
+            {
+                method: 'PATCH',
+                params: {
+                    id: id,
+                    completed: completed,
+                }
+            }
         )
         .then(() => {
             return axios.get("http://localhost:8080/lists")
@@ -17,4 +24,4 @@ const deleteEventByIdAction = (id) => {
     }
 }
 
-export default deleteEventByIdAction;
+export default changeStatusByIdAction;

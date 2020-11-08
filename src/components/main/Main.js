@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import './main.css';
 import { Button, Table } from 'antd';
 import {connect} from 'react-redux';
-import deleteEventByIdAction from "../../store/action/deleteEventByIdAction";
+import deleteEventByIdAction from '../../store/action/deleteEventByIdAction';
+import changeStatusByIdAction from '../../store/action/changeStatusByIdAction';
 
 class Main extends Component {
     columns = [
@@ -32,7 +33,11 @@ class Main extends Component {
             render: (text, record) => (
                 <div className='operation'>
                     <Button>编辑</Button>
-                    <Button>完成</Button>
+                    <Button
+                        onClick={this.handleChangeStatusClick.bind(this, text.id, !text.completed)}
+                    >
+                        完成
+                    </Button>
                     <Button
                         onClick={this.handleDeleteClick.bind(this, text.id)}
                     >
@@ -44,8 +49,14 @@ class Main extends Component {
     ];
 
     handleDeleteClick(id) {
-        console.log(id);
         this.props.deleteEventById(id);
+    }
+
+    handleChangeStatusClick(id, completed) {
+        console.log(id);
+        console.log(completed);
+        
+        this.props.changeStatusById(id, completed);
     }
 
     dataTransform(events) {
@@ -83,6 +94,9 @@ const mapDispatchToProps = (dispatch) => {
         deleteEventById: (id) => {
             dispatch(deleteEventByIdAction(id));
         },
+        changeStatusById: (id, completed) => {
+            dispatch(changeStatusByIdAction(id, completed));
+        }
     }
 }
 
