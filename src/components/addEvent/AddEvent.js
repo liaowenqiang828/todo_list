@@ -13,12 +13,14 @@ class AddButton extends Component {
 
     addEvent = () => {
         this.props.addEvent(this.props.inputValue);
+        this.props.eventInputAction('');
     }
 
     render() {
         return (
             <div className='addEvent'>
                 <Input 
+                    value={this.props.inputValue}
                     placeholder='请输入事件名称'
                     onChange={e => this.updateInputValue(e)}
                 />
