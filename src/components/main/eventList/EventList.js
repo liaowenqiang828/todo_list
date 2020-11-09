@@ -4,6 +4,7 @@ import { Button, Table } from 'antd';
 import {connect} from 'react-redux';
 import deleteEventByIdAction from '../../../store/action/deleteEventByIdAction';
 import changeStatusByIdAction from '../../../store/action/changeStatusByIdAction';
+import EditEvent from '../editEvent/EditEvent';
 
 class EventList extends Component {
 
@@ -34,9 +35,7 @@ class EventList extends Component {
             width: '250px',
             render: (text, record) => (
                 <div className='operation'>
-                    <Button>
-                        编辑
-                    </Button>
+                    <EditEvent />
                     <Button
                         disabled={record.completed}
                         onClick={this.handleChangeStatusClick.bind(this, text.id, !text.completed)}
