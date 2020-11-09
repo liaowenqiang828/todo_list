@@ -3,7 +3,7 @@ import { Button, Input } from 'antd';
 import "./addEvent.css";
 import { connect } from "react-redux";
 import eventInputActionCreator from '../../store/action/eventInputActionCreator';
-import addEventData from '../../store/action/eventAddAction';
+import eventAddAction from '../../store/action/eventAddAction';
 
 class AddButton extends Component {
 
@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch) => {
         },
 
         addEvent: (eventValue) => {
-            dispatch(addEventData(eventValue));
+            dispatch(eventAddAction(eventValue));
         }
     }
 
