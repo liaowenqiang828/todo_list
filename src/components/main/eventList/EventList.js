@@ -6,6 +6,7 @@ import deleteEventByIdAction from '../../../store/action/deleteEventByIdAction';
 import changeStatusByIdAction from '../../../store/action/changeStatusByIdAction';
 
 class EventList extends Component {
+
     columns = [
         {
             title:'序号',
@@ -71,10 +72,10 @@ class EventList extends Component {
             <div className='main'>
                 <Table 
                 pagination={{
-                    current: 1,
+                    hideOnSinglePage: true,
                     pageSize: 7,
                     defaultCurrent: 1,
-                    hideOnSinglePage: true
+                    position: ['bottomRight']
                 }}
                 size='large'
                 tableLayout='fixed'
