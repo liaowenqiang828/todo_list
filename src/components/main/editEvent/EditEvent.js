@@ -2,14 +2,15 @@ import React, {useState} from 'react';
 import { Modal, Form, Button, Input } from 'antd';
 
 const EditForm = (props) => {
+    const {onCancel, onOk, originInput} = props;
     return (
         <Modal
             visible={props.visible}
             title='Event Edit'
             okText='确认'
             cancelText='取消'
-            onCancel={props.onCancel}
-            onOk={props.onOk}
+            onCancel={onCancel}
+            onOk={onOk}
         >
             <Form
             >
@@ -17,6 +18,7 @@ const EditForm = (props) => {
                 >
                     <Input 
                         type='text'
+                        value={originInput}
                     />
                 </Form.Item>
             </Form>
@@ -25,7 +27,8 @@ const EditForm = (props) => {
     );
 };
 
-const EditEvent = () => {
+const EditEvent = (props) => {
+    const {originInput} = props;
     const [visible, setVisible] = useState(false);
 
     const onOk = () => {
@@ -34,7 +37,6 @@ const EditEvent = () => {
 
     const onCancel = () => {
         setVisible(false);
-        console.log(visible);
     }
 
     return (
@@ -47,6 +49,7 @@ const EditEvent = () => {
                 编辑
             </Button>
             <EditForm
+                originInput={originInput}
                 visible={visible}
                 onOk={onOk}
                 onCancel={onCancel}

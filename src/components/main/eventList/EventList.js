@@ -35,7 +35,7 @@ class EventList extends Component {
             width: '250px',
             render: (text, record) => (
                 <div className='operation'>
-                    <EditEvent />
+                    <EditEvent originInput={record.detail}/>
                     <Button
                         disabled={record.completed}
                         onClick={this.handleChangeStatusClick.bind(this, text.id, !text.completed)}
