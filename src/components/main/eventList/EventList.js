@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import './eventList.css';
 import { Button, Table } from 'antd';
 import {connect} from 'react-redux';
-import deleteEventByIdAction from '../../../store/action/deleteEventByIdAction';
-import changeStatusByIdAction from '../../../store/action/changeStatusByIdAction';
+import {deleteEventByIdAction} from '../../../store/action/actions';
+import {changeStatusByIdAction} from '../../../store/action/actions';
 import EditEvent from '../editEvent/EditEvent';
 
 class EventList extends Component {
@@ -38,7 +38,7 @@ class EventList extends Component {
                     <EditEvent originInput={record.detail} id={record.id}/>
                     <Button
                         disabled={record.completed}
-                        onClick={this.handleChangeStatusClick.bind(this, text.id, !text.completed)}
+                        onClick={this.handleChangeStatusClick.bind(this, text.id, !text.completed, Date.now())}
                     >
                         完成
                     </Button>
@@ -56,8 +56,8 @@ class EventList extends Component {
         this.props.deleteEventById(id);
     }
 
-    handleChangeStatusClick(id, completed) {
-        this.props.changeStatusById(id, completed);
+    handleChangeStatusClick(id, completed, timeStamp) {
+        this.props.changeStatusById(id, completed, timeStamp);
     }
 
     dataTransform(events) {
@@ -91,8 +91,8 @@ const mapDispatchToProps = (dispatch) => {
         deleteEventById: (id) => {
             dispatch(deleteEventByIdAction(id));
         },
-        changeStatusById: (id, completed) => {
-            dispatch(changeStatusByIdAction(id, completed));
+        changeStatusById: (id, completed, timeStamp) => {
+            dispatch(changeStatusByIdAction(id, completed, timeStamp));
         }
     }
 }

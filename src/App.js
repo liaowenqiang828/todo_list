@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from './components/header/Header';
 import Main from './components/main/Main';
 import './App.css';
-import getAllDataAction from './store/action/getAllDataAction';
+import {getAllDataAction} from './store/action/actions';
 import {connect} from 'react-redux';
 import AddEvent from './components/addEvent/AddEvent';
 import Footer from './components/footer/Footer';

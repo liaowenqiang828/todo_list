@@ -20,13 +20,15 @@ const EditForm = (props) => {
             cancelText='取消'
             onCancel={onCancel}
             onOk={() => {
+                const timeStamp = Date.now();
                 const newEvent = form.getFieldValue('eventInput');
                 axios({
                     url: 'http://localhost:8080/event',
                     method: 'PATCH',
                     params: {
-                        id: id,
-                        detail: newEvent
+                        id,
+                        detail: newEvent,
+                        timeStamp
                     }
                 })
                 .then(() => {

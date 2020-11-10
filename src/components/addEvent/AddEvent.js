@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Button, Input } from 'antd';
 import "./addEvent.css";
 import { connect } from "react-redux";
-import eventInputActionCreator from '../../store/action/eventInputActionCreator';
-import eventAddAction from '../../store/action/eventAddAction';
+import {eventInputActionCreator} from '../../store/action/actionCreators';
+import {addEventData} from '../../store/action/actions';
 
 class AddButton extends Component {
 
@@ -12,7 +12,7 @@ class AddButton extends Component {
     }
 
     addEvent = () => {
-        this.props.addEvent(this.props.inputValue);
+        this.props.addEvent(this.props.inputValue, Date.now());
         this.props.eventInputAction('');
     }
 
@@ -47,8 +47,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(eventInputActionCreator(inputValue));
         },
 
-        addEvent: (eventValue) => {
-            dispatch(eventAddAction(eventValue));
+        addEvent: (eventValue, timeStamp) => {
+            dispatch(addEventData(eventValue, timeStamp));
         }
     }
 
