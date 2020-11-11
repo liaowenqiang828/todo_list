@@ -47,6 +47,10 @@
     ]
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.13.0",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-watch": "^7.0.0",
     "node-loader": "^1.0.2",
     "sass-loader": "^10.0.5",
     "webpack": "^4.44.2"

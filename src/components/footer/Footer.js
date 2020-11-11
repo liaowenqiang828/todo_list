@@ -5,26 +5,26 @@ import { UndoOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 
 function Footer(props) {
-    return (
-        <div className={styles.footer}>
-            <Button>
-                <NavLink to='/'>
-                    全部
-                </NavLink>
-            </Button>
-            <Button>
-                <NavLink to='/completed'>
-                    已完成
-                </NavLink>
-            </Button>
-            <Button>
-                <NavLink to='/unCompleted'>
-                    未完成
-                </NavLink>
-            </Button>
-            <UndoOutlined />
-        </div>
-    )
+  return (
+    <div className={styles.footer}>
+      <Button>
+        <NavLink to='/'>
+            全部
+        </NavLink>
+      </Button>
+      <Button>
+        <NavLink to='/completed'>
+            已完成
+        </NavLink>
+      </Button>
+      <Button>
+        <NavLink to='/unCompleted'>
+            未完成
+        </NavLink>
+      </Button>
+      <UndoOutlined />
+    </div>
+  ); 
 }
 
 export default CssModules(Footer, styles);

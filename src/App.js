@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Header from './components/header/Header';
 import Main from './components/main/Main';
 import './App.css';
-import {getAllDataAction} from './store/action/actions';
-import {connect} from 'react-redux';
-import AddEvent from './components/addEvent/AddEvent';
+import { getAllDataAction } from './store/action/actions';
+import { connect } from 'react-redux';
+import AddEvent from './components/main/addEvent/AddEvent';
 import Footer from './components/footer/Footer';
 
 class App extends Component {
@@ -21,7 +21,7 @@ class App extends Component {
         <Main />
         <Footer />
       </div>
-    )
+    );
   }
 }
 
@@ -30,13 +30,13 @@ const mapDispatchToProps = (dispatch) => {
     getAllDataAction() {
       dispatch(getAllDataAction());
     }
-  }
-}
+  };
+};
 
 const mapStateToProps = (state) => {
   return {
     events: state.data,
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
