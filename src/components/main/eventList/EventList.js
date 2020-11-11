@@ -61,7 +61,7 @@ class EventList extends Component {
     events.map(event => {
       return event.status = event.completed === true ? '已完成' : '未完成';
     });
-  };
+  }
 
   render() {
     return (

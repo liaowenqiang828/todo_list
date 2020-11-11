@@ -9,7 +9,7 @@ class AllEvents extends Component {
         <EventList events={this.props.allEvents} />
       </div>
     );
-  }; 
+  }
 }
 
 const mapStateToProps = (state) => {

@@ -13,6 +13,7 @@ function reducer(state, action) {
   case types.INPUT_VALUE_CHANGE:
     return { ...state, inputValue: action.inputValue };
   case types.ADD_EVENT:
+  {
     let preId = state.data[state.data.length - 1].id;
     const newEvent = {
       id: preId + 1,
@@ -20,10 +21,11 @@ function reducer(state, action) {
       completed: false
     };
     return { ...state, data: [...state.data, newEvent] };
+  }
+    
   default:
     return state;
-
-  };
+  }
 }
 
 export default reducer;
