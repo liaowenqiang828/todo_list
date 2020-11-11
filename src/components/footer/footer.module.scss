@@ -7,5 +7,17 @@
 
     a {
         text-decoration: none;
+        border-radius: 10px;
+        width: 74px;
+        height: 34px;
+        text-align: center;
+        line-height: 34px;
+    }
+
+    .active {
+        color: #fff;
+        font-size: 16px;
+        font-weight: 700;
+        background-color: #1a90ff;
     }
 }
