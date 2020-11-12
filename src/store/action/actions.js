@@ -1,5 +1,8 @@
 import axios from 'axios';
-import { updateDataActionCreator, eventInputActionCreator } from './actionCreators';
+import { updateDataActionCreator, 
+  eventInputActionCreator,
+  modalInputActionCreator 
+} from './actionCreators';
 import { message } from 'antd';
 
 export const getAllDataAction = () => {
@@ -14,6 +17,10 @@ export const getAllDataAction = () => {
 
 export const eventInputAction = (data) => {
   return (dispatch) => dispatch(eventInputActionCreator(data));
+};
+
+export const modalInputAction = (modalInput) => {
+  return dispatch => dispatch(modalInputActionCreator(modalInput));
 };
 
 export const addEventData = (eventValue, timeStamp) => {
@@ -73,6 +80,28 @@ export const changeStatusByIdAction = (id, completed, timeStamp) => {
         }
       }
     )
+      .then(() => {
+        return axios.get("http://localhost:8080/lists");
+      }
+      )
+      .then(response => {
+        const data = response.data;
+        dispatch(updateDataActionCreator(data));
+      });
+  };
+};
+
+export const editEvent = (id, newEvent, timeStamp) => {
+  return (dispatch) => {
+    axios({
+      url: 'http://localhost:8080/event',
+      method: 'PATCH',
+      params: {
+        id,
+        detail: newEvent,
+        timeStamp,
+      }
+    })
       .then(() => {
         return axios.get("http://localhost:8080/lists");
       }

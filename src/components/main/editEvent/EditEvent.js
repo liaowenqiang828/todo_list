@@ -1,91 +1,64 @@
-import React, { useState } from 'react';
-import { Modal, Form, Button, Input } from 'antd';
-import axios from 'axios';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Button } from 'antd';
+import { changeModalVisibleActionCreator, 
+  modalInputActionCreator } from '../../../store/action/actionCreators';
+import EditForm from '../editForm/EditForm';
 
-const EditForm = (props) => {
-  const { onCancel, onOk, originInput, id } = props;
+class EditEvent extends Component { 
+  constructor(props) {
+    super(props);
+  }
 
-  const [inputValue, setInputValue] = useState(originInput);
-  const [form] = Form.useForm();
-
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-
-    form.setFieldsValue({
-      eventInput: e.target.value,
-    });
+  onOk = () => {
+    this.props.changeModalVisible();
   };
 
-  return (
-    <Modal
-      visible={props.visible}
-      title='Event Edit'
-      okText='确认'
-      cancelText='取消'
-      onCancel={onCancel}
-      onOk={() => {
-        const timeStamp = Date.now();
-        const newEvent = form.getFieldValue('eventInput');
-        axios({
-          url: 'http://localhost:8080/event',
-          method: 'PATCH',
-          params: {
-            id,
-            detail: newEvent,
-            timeStamp
-          }
-        })
-          .then(() => {
-            onOk();
-          });
-      }}
-    >
-      <Form
-        form={form}
-      >
-        <Form.Item>
-          <Input 
-            name='event'
-            type='text'
-            value={inputValue}
-            onChange={handleInputChange.bind(this)}
-          />
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
+  onCancel = () => { 
+    this.props.changeModalVisible();
+  };
+
+  handleButtonClick = () => {
+    this.props.changeModalVisible();
+    this.props.modalInputChange(this.props.originInput);
+  };
+
+  render() {
+    const { id, visible } = this.props;
+    return (
+      <div>
+        <Button 
+          onClick={ this.handleButtonClick }
+        >
+          编辑
+        </Button>
+        <EditForm
+          id={id}
+          visible={visible}
+          onOk={this.onOk}
+          onCancel={this.onCancel}
+        />
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    visible: state.visible,
+    modalInput: state.modalInput
+  };
 };
 
-const EditEvent = (props) => { 
-  const { originInput, id } = props;
-  const [visible, setVisible] = useState(false);
-
-  const onOk = () => {
-    setVisible(false);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeModalVisible: () => {
+      dispatch(changeModalVisibleActionCreator());
+    },
+    modalInputChange: (modalInput) => {
+      dispatch(modalInputActionCreator(modalInput));
+    },
   };
-
-  const onCancel = () => { 
-    setVisible(false); 
-  };
-
-  return (
-    <div>
-      <Button 
-        onClick={() => {
-          setVisible(true);
-        }}
-      >
-        编辑
-      </Button>
-      <EditForm
-        id={id}
-        originInput={originInput}
-        visible={visible}
-        onOk={onOk}
-        onCancel={onCancel}
-      />
-    </div>
-  );
 };
 
-export default EditEvent;
+export default connect(mapStateToProps, mapDispatchToProps)(EditEvent);
