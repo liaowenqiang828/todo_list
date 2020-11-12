@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Form, Input } from 'antd';
-import { editEvent } from '../../../store/action/actions';
-import { modalInputActionCreator, 
-  changeModalVisibleActionCreator } from '../../../store/action/actionCreators';
+import { editEventAction, 
+  modalInputAction, 
+  changeModalVisibleAction } from '../../../store/action/actions';
 
 class EditForm extends Component {
   constructor(props) {
@@ -58,15 +58,15 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     changeModalVisible: () => {
-      dispatch(changeModalVisibleActionCreator());
+      dispatch(changeModalVisibleAction());
     },
 
     modalInputChange: (modalInput) => {
-      dispatch(modalInputActionCreator(modalInput));
+      dispatch(modalInputAction(modalInput));
     },
 
     newEventPatch: (id, newEvent, timeStamp) => {
-      dispatch(editEvent(id, newEvent, timeStamp));
+      dispatch(editEventAction(id, newEvent, timeStamp));
     }
   };
 };

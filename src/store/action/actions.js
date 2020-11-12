@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { updateDataActionCreator, 
   eventInputActionCreator,
-  modalInputActionCreator 
+  modalInputActionCreator,
+  changeModalVisibleActionCreator
 } from './actionCreators';
 import { message } from 'antd';
 
@@ -91,7 +92,7 @@ export const changeStatusByIdAction = (id, completed, timeStamp) => {
   };
 };
 
-export const editEvent = (id, newEvent, timeStamp) => {
+export const editEventAction = (id, newEvent, timeStamp) => {
   return (dispatch) => {
     axios({
       url: 'http://localhost:8080/event',
@@ -110,5 +111,11 @@ export const editEvent = (id, newEvent, timeStamp) => {
         const data = response.data;
         dispatch(updateDataActionCreator(data));
       });
+  };
+};
+
+export const changeModalVisibleAction = () => {
+  return dispatch => {
+    dispatch(changeModalVisibleActionCreator());
   };
 };
