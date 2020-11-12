@@ -35,3 +35,15 @@ export const changeEventStatusByIdRequest = (id, completed, timeStamp) => {
     }
   });
 };
+
+export const editEventRequest = (id, newEvent, timeStamp) => {
+  return axios({
+    url: BASE_URL + EVENT_ITEM_PATH,
+    method: 'PATCH',
+    params: {
+      id,
+      detail: newEvent,
+      timeStamp,
+    }
+  });
+};

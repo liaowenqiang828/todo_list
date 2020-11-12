@@ -1,13 +1,12 @@
-import axios from 'axios';
 import { updateDataActionCreator, 
   eventInputActionCreator,
   modalInputActionCreator,
-  changeModalVisibleActionCreator
-} from './actionCreators';
+  changeModalVisibleActionCreator } from './actionCreators';
 import { message } from 'antd';
 import { addEventDataRequest, 
   changeEventStatusByIdRequest, 
   deleteEventByIdRequest, 
+  editEventRequest, 
   getAllDataRequest } from '../../utils/http/axios';
 
 export const getAllDataAction = () => {
@@ -63,21 +62,9 @@ export const changeStatusByIdAction = (id, completed, timeStamp) => {
 
 export const editEventAction = (id, newEvent, timeStamp) => {
   return (dispatch) => {
-    axios({
-      url: 'http://localhost:8080/event',
-      method: 'PATCH',
-      params: {
-        id,
-        detail: newEvent,
-        timeStamp,
-      }
-    })
-      .then(() => {
-        return axios.get("http://localhost:8080/lists");
-      }
-      )
-      .then(response => {
-        const data = response.data;
+    editEventRequest(id, newEvent, timeStamp)
+      .then(() => getAllDataRequest())
+      .then(data => {
         dispatch(updateDataActionCreator(data));
       });
   };
