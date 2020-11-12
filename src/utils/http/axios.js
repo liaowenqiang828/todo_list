@@ -20,7 +20,18 @@ export const addEventDataRequest = (eventValue, timeStamp) => {
 
 export const deleteEventByIdRequest = (id) => {
   return axios.delete(
-    BASE_URL + id
+    BASE_URL + EVENT_ITEM_PATH + '/' + id
   );
 };
 
+export const changeEventStatusByIdRequest = (id, completed, timeStamp) => {
+  return axios({
+    url: BASE_URL + EVENT_ITEM_PATH,
+    method: 'PATCH',
+    params: {
+      id,
+      completed,
+      timeStamp
+    }
+  });
+};

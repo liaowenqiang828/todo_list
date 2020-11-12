@@ -6,6 +6,7 @@ import { updateDataActionCreator,
 } from './actionCreators';
 import { message } from 'antd';
 import { addEventDataRequest, 
+  changeEventStatusByIdRequest, 
   deleteEventByIdRequest, 
   getAllDataRequest } from '../../utils/http/axios';
 
@@ -52,23 +53,9 @@ export const deleteEventByIdAction = (id) => {
 
 export const changeStatusByIdAction = (id, completed, timeStamp) => {
   return (dispatch) => {
-    axios(
-      'http://localhost:8080/event',
-      {
-        method: 'PATCH',
-        params: {
-          id,
-          completed,
-          timeStamp
-        }
-      }
-    )
-      .then(() => {
-        return axios.get("http://localhost:8080/lists");
-      }
-      )
-      .then(response => {
-        const data = response.data;
+    changeEventStatusByIdRequest(id, completed, timeStamp)
+      .then(() => getAllDataRequest())
+      .then(data => {
         dispatch(updateDataActionCreator(data));
       });
   };
