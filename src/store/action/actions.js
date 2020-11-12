@@ -5,6 +5,7 @@ import { updateDataActionCreator,
   changeModalVisibleActionCreator
 } from './actionCreators';
 import { message } from 'antd';
+import { addEventDataRequest } from '../../utils/http/axios';
 
 export const getAllDataAction = () => {
   return (dispatch) => {
@@ -26,19 +27,8 @@ export const modalInputAction = (modalInput) => {
 
 export const addEventData = (eventValue, timeStamp) => {
   return (dispatch) => {
-    axios.post(
-      'http://localhost:8080/event',
-      {
-        detail: eventValue,
-        timeStamp,
-      }
-    )
-      .then(() => {
-        return axios.get("http://localhost:8080/lists");
-      }
-      )
-      .then(response => {
-        const data = response.data;
+    addEventDataRequest(eventValue, timeStamp)
+      .then(data => {
         dispatch(updateDataActionCreator(data));
       });
   };
