@@ -5,15 +5,17 @@ import { updateDataActionCreator,
   changeModalVisibleActionCreator
 } from './actionCreators';
 import { message } from 'antd';
-import { addEventDataRequest } from '../../utils/http/axios';
+import { addEventDataRequest, 
+  deleteEventByIdRequest, 
+  getAllDataRequest } from '../../utils/http/axios';
 
 export const getAllDataAction = () => {
   return (dispatch) => {
-    axios.get("http://localhost:8080/lists")
-      .then(response => {
-        const data = response.data;
-        dispatch(updateDataActionCreator(data));
-      }).catch(error => message.info(error.message));
+    getAllDataRequest()
+      .then(data => 
+        dispatch(updateDataActionCreator(data))
+      )
+      .catch(error => message.info(error.message));
   };
 };
 
@@ -28,6 +30,7 @@ export const modalInputAction = (modalInput) => {
 export const addEventData = (eventValue, timeStamp) => {
   return (dispatch) => {
     addEventDataRequest(eventValue, timeStamp)
+      .then(() => getAllDataRequest())
       .then(data => {
         dispatch(updateDataActionCreator(data));
       });
@@ -36,24 +39,13 @@ export const addEventData = (eventValue, timeStamp) => {
 
 export const deleteEventByIdAction = (id) => {
   return (dispatch) => {
-    axios.delete(
-      'http://localhost:8080/event/' + id
-    )
-      .then(() => {
-        return axios.get("http://localhost:8080/lists");
-      }
-      )
-      .then(response => {
-        const data = response.data;
+    deleteEventByIdRequest(id)
+      .then(() => getAllDataRequest())
+      .then(data => {
         dispatch(updateDataActionCreator(data));
       })
       .catch(error => {
-        let errorMessage;
-        if(error.response.status !== 404) {
-          errorMessage = '数据加载失败，请重试！';
-        }
-        errorMessage = error.message;
-        message.info(errorMessage);
+        console.log(error);
       });
   };
 };

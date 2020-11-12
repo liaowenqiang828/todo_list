@@ -15,7 +15,12 @@ export const addEventDataRequest = (eventValue, timeStamp) => {
       detail: eventValue,
       timeStamp,
     }
-  )
-    .then(() => getAllDataRequest());
+  );
+};
+
+export const deleteEventByIdRequest = (id) => {
+  return axios.delete(
+    BASE_URL + id
+  );
 };
 
