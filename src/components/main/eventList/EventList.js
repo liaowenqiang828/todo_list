@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import './eventList.css';
+import React from 'react';
+import styles from './index.module.scss';
+import cssModules from 'react-css-modules';
 import { Button, Table } from 'antd';
 import { connect } from 'react-redux';
 import { deleteEventByIdAction } from '../../../store/action/actions';
 import { changeStatusByIdAction } from '../../../store/action/actions';
 import EditEvent from '../editEvent/EditEvent';
 
-class EventList extends Component {
-  columns = [
+function EventList(props) {
+  const columns = [
     {
       title:'序号',
       width: '70px',
@@ -32,16 +33,16 @@ class EventList extends Component {
       align: 'center',
       width: '250px',
       render: (text, record) => 
-        <div className='operation'>
+        <div className={styles.operation}>
           <EditEvent originInput={record.detail} id={record.id}/>
           <Button
             disabled={record.completed}
-            onClick={this.handleChangeStatusClick.bind(this, text.id, !text.completed, Date.now())}
+            onClick={handleChangeStatusClick.bind(this, text.id, !text.completed, Date.now())}
           >
             完成
           </Button>
           <Button
-            onClick={this.handleDeleteClick.bind(this, text.id)}
+            onClick={handleDeleteClick.bind(this, text.id)}
           >
             删除
           </Button>
@@ -49,38 +50,30 @@ class EventList extends Component {
     },
   ];
 
-  handleDeleteClick(id) {
-    this.props.deleteEventById(id);
-  }
+  const handleDeleteClick = (id) => {
+    props.deleteEventById(id);
+  };
 
-  handleChangeStatusClick(id, completed, timeStamp) {
-    this.props.changeStatusById(id, completed, timeStamp);
-  }
+  const handleChangeStatusClick = (id, completed, timeStamp) => {
+    props.changeStatusById(id, completed, timeStamp);
+  };
 
-  dataTransform(events) {
-    events.map(event => {
-      return event.status = event.completed === true ? '已完成' : '未完成';
-    });
-  }
-
-  render() {
-    return (
-      <div className='main'>
-        <Table 
-          pagination={{
-            hideOnSinglePage: true,
-            pageSize: 7,
-            defaultCurrent: 1,
-            position: ['bottomRight']
-          }}
-          size='large'
-          tableLayout='fixed'
-          rowKey={record => record.id}
-          columns={this.columns}
-          dataSource={this.props.events}/>
-      </div>
-    );
-  }
+  return (
+    <div className={styles.main}>
+      <Table 
+        pagination={{
+          hideOnSinglePage: true,
+          pageSize: 7,
+          defaultCurrent: 1,
+          position: ['bottomRight']
+        }}
+        size='large'
+        tableLayout='fixed'
+        rowKey={record => record.id}
+        columns={columns}
+        dataSource={props.events}/>
+    </div>
+  );
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -94,4 +87,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(EventList);
+export default connect(null, mapDispatchToProps)(cssModules(EventList, styles));

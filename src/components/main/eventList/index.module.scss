@@ -1,7 +1,11 @@
-.main {
+.main :global {
     width: 800px;
     height: 600px;
     font-size: 1.2em;
+
+    .ant-table-thead > tr > th {
+        background-color: blueviolet;
+    }
 }
 
 .operation {
@@ -9,3 +13,4 @@
     vertical-align: middle;
     justify-content: space-evenly;
 }
+
