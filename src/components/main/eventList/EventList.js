@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './index.module.scss';
 import cssModules from 'react-css-modules';
-import { Button, Table } from 'antd';
+import { Button, Input, Table } from 'antd';
 import { connect } from 'react-redux';
 import { deleteEventByIdAction } from '../../../store/action/actions';
 import { changeStatusByIdAction } from '../../../store/action/actions';
@@ -16,9 +16,21 @@ function EventList(props) {
       render: (text, record, index) => index + 1,
     },
     {
+      title: '选择',
+      width: '70px',
+      align: 'center',
+      render: () => 
+        <div>
+          <Input 
+            type='checkbox' 
+            onClick={e => abandomBlurAfterCheckboxChecked(e)}
+          />
+        </div>
+    },
+    {
       title: '事件名称',
       dataIndex: 'detail',
-      width: '400px',
+      width: '330px',
       align: 'center'
     },
     {
@@ -49,6 +61,10 @@ function EventList(props) {
         </div>
     },
   ];
+
+  const abandomBlurAfterCheckboxChecked = (e) => {
+    e.target.blur();
+  };
 
   const handleDeleteClick = (id) => {
     props.deleteEventById(id);
