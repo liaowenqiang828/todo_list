@@ -18,9 +18,19 @@ class EditEvent extends Component {
     this.props.changeModalVisible();
   };
 
-  handleButtonClick = () => {
+  abandomButtonBlurAfterClick = (e) => {
+    let target = e.target;
+    if (target.nodeName === 'SPAN') {
+      target = e.target.parentNode;
+    }
+
+    target.blur();
+  };
+
+  handleButtonClick = (e) => {
     this.props.changeModalVisible();
     this.props.modalInputChange(this.props.originInput);
+    this.abandomButtonBlurAfterClick(e);
   };
 
   render() {
