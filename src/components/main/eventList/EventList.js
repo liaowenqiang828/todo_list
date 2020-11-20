@@ -21,7 +21,7 @@ function EventList(props) {
       title: <div>
         <Checkbox 
           checked={props.checked}
-          onClick={() => handleAllSelectClick(props.checked)} 
+          onClick={() => handleAllSelectClick(props.checked, props.data)} 
         >
           全选
         </Checkbox>
@@ -32,7 +32,7 @@ function EventList(props) {
         <div>
           <Checkbox 
             checked={record.checked}
-            onClick={e => handleCheckBoxClick(e, record.id)}
+            onClick={e => handleCheckBoxClick(e, record.id, props.data)}
           />
         </div>
     },
@@ -105,14 +105,23 @@ function EventList(props) {
         tableLayout='fixed'
         rowKey={record => record.id}
         columns={columns}
-        dataSource={props.events}/>
+        dataSource={props.events}
+      />
+      {props.isShowAllDeleteCompletedButton && 
+      <div>
+        <Button>全部删除</Button>
+        <Button>全部完成</Button>
+      </div>
+      }
     </div>
   );
 }
 
 const mapStateToProps = (state) => {
   return {
-    checked: state.checked
+    checked: state.checked,
+    data: state.data,
+    isShowAllDeleteCompletedButton: state.isShowAllDeleteCompletedButton
   };
 };
 

@@ -39,3 +39,10 @@ export const changeAllCheckedStatusActionCreator = (isAllChecked) => {
     isAllChecked
   };
 };
+
+export const isShowAllDeleteCompletedButtonActionCreator = (isShowAllDeleteCompletedButton) => {
+  return {
+    type: types.IS_SHOW_ALL_DELETE_COMPLETED_BUTTON,
+    isShowAllDeleteCompletedButton,
+  };
+};

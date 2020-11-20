@@ -6,7 +6,8 @@ function reducer(state, action) {
     inputValue: '',
     visible: false,
     modalInput: '',
-    checked: false
+    checked: false,
+    isShowAllDeleteCompletedButton: false
   };
   state = state || initialState;
 
@@ -25,6 +26,9 @@ function reducer(state, action) {
 
   case types.ALL_CHECKED_STATUS:
     return { ...state, checked: !action.isAllChecked };
+
+  case types.IS_SHOW_ALL_DELETE_COMPLETED_BUTTON:
+    return { ...state, isShowAllDeleteCompletedButton: action.isShowAllDeleteCompletedButton };
     
   default:
     return state;

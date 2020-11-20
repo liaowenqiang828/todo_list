@@ -2,7 +2,8 @@ import { updateDataActionCreator,
   eventInputActionCreator,
   modalInputActionCreator,
   changeModalVisibleActionCreator, 
-  changeAllCheckedStatusActionCreator } from './actionCreators';
+  changeAllCheckedStatusActionCreator, 
+  isShowAllDeleteCompletedButtonActionCreator } from './actionCreators';
 import { message } from 'antd';
 import { addEventDataRequest, 
   changeEventStatusByIdRequest, 
@@ -15,9 +16,9 @@ import { addEventDataRequest,
 export const getAllDataAction = () => {
   return (dispatch) => {
     getAllDataRequest()
-      .then(data => 
-        dispatch(updateDataActionCreator(data))
-      )
+      .then(data => {
+        dispatch(updateDataActionCreator(data));
+      })
       .catch(error => message.info(error.message));
   };
 };
@@ -84,6 +85,9 @@ export const changeCheckedStatusAction = (id, isChangeCheckedStatus) => {
     chengeCheckedStatusRequest(id, isChangeCheckedStatus)
       .then(() => getAllDataRequest())
       .then(data => {
+        dispatch(isShowAllDeleteCompletedButtonActionCreator(
+          checkIsShowAllDeleteCompletedButton(data)
+        ));
         dispatch(updateDataActionCreator(data));
       });
   };
@@ -94,8 +98,23 @@ export const changeAllCheckedStatusAction = (isAllChecked) => {
     changeAllCheckedStatusRequest(isAllChecked)
       .then(() => getAllDataRequest())
       .then(data => {
+        dispatch(isShowAllDeleteCompletedButtonActionCreator(
+          checkIsShowAllDeleteCompletedButton(data)
+        ));
         dispatch(changeAllCheckedStatusActionCreator(isAllChecked));
         dispatch(updateDataActionCreator(data));
       });
   };
+};
+
+export const isShowAllDeleteCompletedButtonAction = (isShowAllDeleteCompletedButton) => {
+  return dispatch => 
+    dispatch(isShowAllDeleteCompletedButtonActionCreator(isShowAllDeleteCompletedButton));
+};
+
+const checkIsShowAllDeleteCompletedButton = (data) => {
+  const filtedData = data.filter(item => {
+    return item.checked === true;
+  });
+  return filtedData.length > 0;
 };
