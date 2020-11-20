@@ -1,13 +1,15 @@
 import { updateDataActionCreator, 
   eventInputActionCreator,
   modalInputActionCreator,
-  changeModalVisibleActionCreator } from './actionCreators';
+  changeModalVisibleActionCreator, 
+  changeAllCheckedStatusActionCreator } from './actionCreators';
 import { message } from 'antd';
 import { addEventDataRequest, 
   changeEventStatusByIdRequest, 
   deleteEventByIdRequest, 
   editEventRequest, 
   getAllDataRequest,
+  changeAllCheckedStatusRequest,
   chengeCheckedStatusRequest } from '../../utils/http/axios';
 
 export const getAllDataAction = () => {
@@ -82,6 +84,17 @@ export const changeCheckedStatusAction = (id, isChangeCheckedStatus) => {
     chengeCheckedStatusRequest(id, isChangeCheckedStatus)
       .then(() => getAllDataRequest())
       .then(data => {
+        dispatch(updateDataActionCreator(data));
+      });
+  };
+};
+
+export const changeAllCheckedStatusAction = (isAllChecked) => {
+  return dispatch => {
+    changeAllCheckedStatusRequest(isAllChecked)
+      .then(() => getAllDataRequest())
+      .then(data => {
+        dispatch(changeAllCheckedStatusActionCreator(isAllChecked));
         dispatch(updateDataActionCreator(data));
       });
   };

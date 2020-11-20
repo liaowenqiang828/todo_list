@@ -4,20 +4,29 @@ import cssModules from 'react-css-modules';
 import { Button, Checkbox, Table } from 'antd';
 import { connect } from 'react-redux';
 import { deleteEventByIdAction } from '../../../store/action/actions';
-import { changeStatusByIdAction , changeCheckedStatusAction } from '../../../store/action/actions';
+import { changeStatusByIdAction , 
+  changeCheckedStatusAction, 
+  changeAllCheckedStatusAction } from '../../../store/action/actions';
 import EditEvent from '../editEvent/EditEvent';
 
 function EventList(props) {
   const columns = [
     {
       title:'序号',
-      width: '70px',
+      width: '60px',
       align: 'center',
       render: (text, record, index) => index + 1,
     },
     {
-      title: '选择',
-      width: '70px',
+      title: <div>
+        <Checkbox 
+          checked={props.checked}
+          onClick={() => handleAllSelectClick(props.checked)} 
+        >
+          全选
+        </Checkbox>
+      </div>,
+      width: '110px',
       align: 'center',
       render: (text, record) => 
         <div>
@@ -30,7 +39,7 @@ function EventList(props) {
     {
       title: '事件名称',
       dataIndex: 'detail',
-      width: '330px',
+      width: '300px',
       align: 'center'
     },
     {
@@ -68,7 +77,11 @@ function EventList(props) {
 
   const handleCheckBoxClick = (e, id) => {
     abandomBlurAfterCheckboxChecked(e);
-    props.checkBoxClick(id, true);
+    props.singleCheckBoxClick(id, true);
+  };
+
+  const handleAllSelectClick = (isAllChecked) => {
+    props.selectAllCheckboxClick(isAllChecked);
   };
 
   const handleDeleteClick = (id) => {
@@ -111,8 +124,11 @@ const mapDispatchToProps = (dispatch) => {
     changeStatusById: (id, completed, timeStamp) => {
       dispatch(changeStatusByIdAction(id, completed, timeStamp));
     },
-    checkBoxClick: (id, isChangeCheckedStatus=true) => {
+    singleCheckBoxClick: (id, isChangeCheckedStatus=true) => {
       dispatch(changeCheckedStatusAction(id, isChangeCheckedStatus));
+    },
+    selectAllCheckboxClick: (isAllChecked) => {
+      dispatch(changeAllCheckedStatusAction(isAllChecked));
     }
   };
 };

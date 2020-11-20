@@ -32,3 +32,10 @@ export const changeCheckedStatusActionCreator = () => {
     type: types.CHECKED_STATUS
   };
 };
+
+export const changeAllCheckedStatusActionCreator = (isAllChecked) => {
+  return {
+    type: types.ALL_CHECKED_STATUS,
+    isAllChecked
+  };
+};

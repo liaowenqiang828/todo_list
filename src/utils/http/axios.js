@@ -58,3 +58,13 @@ export const chengeCheckedStatusRequest = (id, isChangeCheckedStatus) => {
     }
   });
 };
+
+export const changeAllCheckedStatusRequest = (isAllChecked) => {
+  return axios({
+    url: BASE_URL + ALL_DATA_PATH,
+    method: 'PATCH',
+    params: {
+      isAllChecked
+    }
+  });
+};

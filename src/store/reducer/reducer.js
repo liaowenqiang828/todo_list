@@ -6,7 +6,7 @@ function reducer(state, action) {
     inputValue: '',
     visible: false,
     modalInput: '',
-    checked: ''
+    checked: false
   };
   state = state || initialState;
 
@@ -23,8 +23,8 @@ function reducer(state, action) {
   case types.MODAL_INPUT_VALUE_CHANGE:
     return { ...state, modalInput: action.modalInput };
 
-  case types.CHECKED_STATUS:
-    return { ...state, checked: !state.checked };
+  case types.ALL_CHECKED_STATUS:
+    return { ...state, checked: !action.isAllChecked };
     
   default:
     return state;
