@@ -17,6 +17,9 @@ export const getAllDataAction = () => {
   return (dispatch) => {
     getAllDataRequest()
       .then(data => {
+        dispatch(isShowAllDeleteCompletedButtonActionCreator(
+          checkIsShowAllDeleteCompletedButton(data)
+        ));
         dispatch(updateDataActionCreator(data));
       })
       .catch(error => message.info(error.message));
