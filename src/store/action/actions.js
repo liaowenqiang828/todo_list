@@ -7,7 +7,8 @@ import { addEventDataRequest,
   changeEventStatusByIdRequest, 
   deleteEventByIdRequest, 
   editEventRequest, 
-  getAllDataRequest } from '../../utils/http/axios';
+  getAllDataRequest,
+  chengeCheckedStatusRequest } from '../../utils/http/axios';
 
 export const getAllDataAction = () => {
   return (dispatch) => {
@@ -73,5 +74,15 @@ export const editEventAction = (id, newEvent, timeStamp) => {
 export const changeModalVisibleAction = () => {
   return dispatch => {
     dispatch(changeModalVisibleActionCreator());
+  };
+};
+
+export const changeCheckedStatusAction = (id, isChangeCheckedStatus) => {
+  return dispatch => {
+    chengeCheckedStatusRequest(id, isChangeCheckedStatus)
+      .then(() => getAllDataRequest())
+      .then(data => {
+        dispatch(updateDataActionCreator(data));
+      });
   };
 };

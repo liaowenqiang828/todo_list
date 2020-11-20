@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './index.module.scss';
 import cssModules from 'react-css-modules';
-import { Button, Input, Table } from 'antd';
+import { Button, Checkbox, Table } from 'antd';
 import { connect } from 'react-redux';
 import { deleteEventByIdAction } from '../../../store/action/actions';
-import { changeStatusByIdAction } from '../../../store/action/actions';
+import { changeStatusByIdAction , changeCheckedStatusAction } from '../../../store/action/actions';
 import EditEvent from '../editEvent/EditEvent';
 
 function EventList(props) {
@@ -19,11 +19,11 @@ function EventList(props) {
       title: '选择',
       width: '70px',
       align: 'center',
-      render: () => 
+      render: (text, record) => 
         <div>
-          <Input 
-            type='checkbox' 
-            onClick={e => abandomBlurAfterCheckboxChecked(e)}
+          <Checkbox 
+            checked={record.checked}
+            onClick={e => handleCheckBoxClick(e, record.id)}
           />
         </div>
     },
@@ -66,6 +66,11 @@ function EventList(props) {
     e.target.blur();
   };
 
+  const handleCheckBoxClick = (e, id) => {
+    abandomBlurAfterCheckboxChecked(e);
+    props.checkBoxClick(id, true);
+  };
+
   const handleDeleteClick = (id) => {
     props.deleteEventById(id);
   };
@@ -92,6 +97,12 @@ function EventList(props) {
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    checked: state.checked
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteEventById: (id) => {
@@ -99,8 +110,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     changeStatusById: (id, completed, timeStamp) => {
       dispatch(changeStatusByIdAction(id, completed, timeStamp));
+    },
+    checkBoxClick: (id, isChangeCheckedStatus=true) => {
+      dispatch(changeCheckedStatusAction(id, isChangeCheckedStatus));
     }
   };
 };
 
-export default connect(null, mapDispatchToProps)(cssModules(EventList, styles));
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(EventList, styles));

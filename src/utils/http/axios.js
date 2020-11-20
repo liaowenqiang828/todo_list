@@ -47,3 +47,14 @@ export const editEventRequest = (id, newEvent, timeStamp) => {
     }
   });
 };
+
+export const chengeCheckedStatusRequest = (id, isChangeCheckedStatus) => {
+  return axios({
+    url: BASE_URL + EVENT_ITEM_PATH,
+    method: 'PATCH',
+    params: {
+      id,
+      isChangeCheckedStatus,
+    }
+  });
+};

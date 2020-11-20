@@ -26,3 +26,9 @@ export const changeModalVisibleActionCreator = () => {
     type: types.MODAL_VISIBLE_CHANGE,
   };
 };
+
+export const changeCheckedStatusActionCreator = () => {
+  return {
+    type: types.CHECKED_STATUS
+  };
+};
