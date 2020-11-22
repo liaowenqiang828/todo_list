@@ -27,7 +27,7 @@ class App extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAllDataAction() {
+    getAllDataAction: () => {
       dispatch(getAllDataAction());
     }
   };
@@ -35,7 +35,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    events: state.data,
+    data: state.data,
+    checkedIdList: state.checkedIdList
   };
 };
 

@@ -55,3 +55,22 @@ export const addOrRemoveTheCheckedItemIdToListActionCreator = (id) => {
     id
   };
 };
+
+export const addOrRemoveAllItemIdToListActionCreator = (isAllChecked) => {
+  return {
+    type: types.ADD_OR_REMOVE_ALL_ITEMS_ID,
+    isAllChecked
+  };
+};
+
+export const initialCheckedIdListActionCreator = () => {
+  return {
+    type: types.INITIAL_CHECKED_LIST
+  };
+};
+
+export const initialShowAllDeleteCompletedButtonActionCreator = () => {
+  return {
+    type: types.INITIAL_SHOW_DELETE_AND_COMPLETE_BTN
+  };
+};

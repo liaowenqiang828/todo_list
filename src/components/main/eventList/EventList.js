@@ -21,7 +21,7 @@ function EventList(props) {
       title: <div>
         <Checkbox 
           checked={props.checked}
-          onClick={() => handleAllSelectClick(props.checked, props.data)} 
+          onClick={() => handleAllSelectClick(props.checked, props.checkedIdList)} 
         >
           全选
         </Checkbox>
@@ -80,8 +80,8 @@ function EventList(props) {
     props.singleCheckBoxClick(id, true, checkedIdList);
   };
 
-  const handleAllSelectClick = (isAllChecked) => {
-    props.selectAllCheckboxClick(isAllChecked);
+  const handleAllSelectClick = (isAllChecked, checkedIdList) => {
+    props.selectAllCheckboxClick(isAllChecked, checkedIdList);
   };
 
   const handleDeleteClick = (id) => {
@@ -137,8 +137,8 @@ const mapDispatchToProps = (dispatch) => {
     singleCheckBoxClick: (id, isChangeCheckedStatus=true, checkedIdList) => {
       dispatch(changeCheckedStatusAction(id, isChangeCheckedStatus, checkedIdList));
     },
-    selectAllCheckboxClick: (isAllChecked) => {
-      dispatch(changeAllCheckedStatusAction(isAllChecked));
+    selectAllCheckboxClick: (isAllChecked, checkedIdList) => {
+      dispatch(changeAllCheckedStatusAction(isAllChecked, checkedIdList));
     }
   };
 };

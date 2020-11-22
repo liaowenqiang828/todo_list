@@ -1,4 +1,6 @@
 import * as types from '../../constant/types';
+import { checkIsShowAllDeleteCompletedButton, 
+  checkCompletedBtnIsAbled } from '../action/actions';
 
 function reducer(state, action) {
   const initialState = {
@@ -39,6 +41,32 @@ function reducer(state, action) {
       newCheckedIdList.push(action.id);
     }
     return { ...state, checkedIdList: newCheckedIdList };
+  }
+
+  case types.ADD_OR_REMOVE_ALL_ITEMS_ID: {
+    let newCheckedIdList = [];
+
+    if (!action.isAllChecked) {
+      newCheckedIdList = state.data.map(item => {
+        return item.id;
+      });
+    }
+    return { ...state, checkedIdList: newCheckedIdList };
+  }
+
+  case types.INITIAL_CHECKED_LIST: {
+    let initialCheckedIdList = state.data
+      .filter(item => { return item.checked === true; })
+      .map(item => { return item.id; });
+    return { ...state, checkedIdList: initialCheckedIdList };
+  }
+
+  case types.INITIAL_SHOW_DELETE_AND_COMPLETE_BTN: {
+    const checkedIdList = state.checkedIdList;
+    const isShowAllDeleteCompletedButton = checkIsShowAllDeleteCompletedButton(checkedIdList);
+    const isCompleteButtonAbled = checkCompletedBtnIsAbled(state.data, checkedIdList);
+    return { ...state, 
+      isShowAllDeleteCompletedButton: [isShowAllDeleteCompletedButton, isCompleteButtonAbled] };
   }
     
   default:

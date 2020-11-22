@@ -4,7 +4,10 @@ import { updateDataActionCreator,
   changeModalVisibleActionCreator, 
   changeAllCheckedStatusActionCreator, 
   isShowAllDeleteCompletedButtonActionCreator, 
-  addOrRemoveTheCheckedItemIdToListActionCreator } from './actionCreators';
+  addOrRemoveTheCheckedItemIdToListActionCreator, 
+  addOrRemoveAllItemIdToListActionCreator, 
+  initialCheckedIdListActionCreator, 
+  initialShowAllDeleteCompletedButtonActionCreator } from './actionCreators';
 import { message } from 'antd';
 import { addEventDataRequest, 
   changeEventStatusByIdRequest, 
@@ -19,6 +22,9 @@ export const getAllDataAction = () => {
     getAllDataRequest()
       .then(data => {
         dispatch(updateDataActionCreator(data));
+        dispatch(initialCheckedIdListActionCreator());
+
+        dispatch(initialShowAllDeleteCompletedButtonActionCreator());
       })
       .catch(error => message.info(error.message));
   };
@@ -96,22 +102,28 @@ export const changeCheckedStatusAction = (id, isChangeCheckedStatus, checkedIdLi
   };
 };
 
-export const changeAllCheckedStatusAction = (isAllChecked) => {
+export const changeAllCheckedStatusAction = (isAllChecked, checkedIdList) => {
   return dispatch => {
+    dispatch(addOrRemoveAllItemIdToListActionCreator(isAllChecked));
     changeAllCheckedStatusRequest(isAllChecked)
       .then(() => getAllDataRequest())
       .then(data => {
         dispatch(changeAllCheckedStatusActionCreator(isAllChecked));
+
+        dispatch(isShowAllDeleteCompletedButtonActionCreator(
+          checkIsShowAllDeleteCompletedButton(checkedIdList), 
+          checkCompletedBtnIsAbled(data, checkedIdList)
+        ));
         dispatch(updateDataActionCreator(data));
       });
   };
 };
 
-const checkIsShowAllDeleteCompletedButton = (checkedIdList) => {
+export const checkIsShowAllDeleteCompletedButton = (checkedIdList) => {
   return checkedIdList.length > 0;
 };
 
-const checkCompletedBtnIsAbled = (data, checkedIdList) => {
+export const checkCompletedBtnIsAbled = (data, checkedIdList) => {
   const dataFilted = data.filter(item => {
     return checkedIdList.includes(item.id) && item.completed === false;
   });
