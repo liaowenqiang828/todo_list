@@ -6,3 +6,4 @@ export const MODAL_INPUT_VALUE_CHANGE = 'modal input change';
 export const CHECKED_STATUS = 'checkbox checked status change';
 export const ALL_CHECKED_STATUS = 'all checkbox checked status change';
 export const IS_SHOW_ALL_DELETE_COMPLETED_BUTTON = 'is show all delete completed button';
+export const ADD_OR_REMOVE_CHECKED_EVENT_ID = 'add or remove the checked event id';

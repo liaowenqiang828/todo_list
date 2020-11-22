@@ -7,7 +7,8 @@ function reducer(state, action) {
     visible: false,
     modalInput: '',
     checked: false,
-    isShowAllDeleteCompletedButton: false
+    isShowAllDeleteCompletedButton: [],
+    checkedIdList: []
   };
   state = state || initialState;
 
@@ -29,6 +30,16 @@ function reducer(state, action) {
 
   case types.IS_SHOW_ALL_DELETE_COMPLETED_BUTTON:
     return { ...state, isShowAllDeleteCompletedButton: action.isShowAllDeleteCompletedButton };
+
+  case types.ADD_OR_REMOVE_CHECKED_EVENT_ID: {
+    let newCheckedIdList = state.checkedIdList;
+    if (state.checkedIdList.includes(action.id)) {
+      newCheckedIdList.splice(state.checkedIdList.indexOf(action.id), 1);
+    } else {
+      newCheckedIdList.push(action.id);
+    }
+    return { ...state, checkedIdList: newCheckedIdList };
+  }
     
   default:
     return state;

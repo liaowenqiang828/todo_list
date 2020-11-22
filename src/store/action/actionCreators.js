@@ -40,9 +40,18 @@ export const changeAllCheckedStatusActionCreator = (isAllChecked) => {
   };
 };
 
-export const isShowAllDeleteCompletedButtonActionCreator = (isShowAllDeleteCompletedButton) => {
+export const isShowAllDeleteCompletedButtonActionCreator = (
+  isShowAllDeleteCompletedButton,
+  isCompletedBtnAbled) => {
   return {
     type: types.IS_SHOW_ALL_DELETE_COMPLETED_BUTTON,
-    isShowAllDeleteCompletedButton,
+    isShowAllDeleteCompletedButton: [isShowAllDeleteCompletedButton, isCompletedBtnAbled]
+  };
+};
+
+export const addOrRemoveTheCheckedItemIdToListActionCreator = (id) => {
+  return {
+    type: types.ADD_OR_REMOVE_CHECKED_EVENT_ID,
+    id
   };
 };

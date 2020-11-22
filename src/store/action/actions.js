@@ -3,7 +3,8 @@ import { updateDataActionCreator,
   modalInputActionCreator,
   changeModalVisibleActionCreator, 
   changeAllCheckedStatusActionCreator, 
-  isShowAllDeleteCompletedButtonActionCreator } from './actionCreators';
+  isShowAllDeleteCompletedButtonActionCreator, 
+  addOrRemoveTheCheckedItemIdToListActionCreator } from './actionCreators';
 import { message } from 'antd';
 import { addEventDataRequest, 
   changeEventStatusByIdRequest, 
@@ -17,9 +18,6 @@ export const getAllDataAction = () => {
   return (dispatch) => {
     getAllDataRequest()
       .then(data => {
-        dispatch(isShowAllDeleteCompletedButtonActionCreator(
-          checkIsShowAllDeleteCompletedButton(data)
-        ));
         dispatch(updateDataActionCreator(data));
       })
       .catch(error => message.info(error.message));
@@ -83,13 +81,15 @@ export const changeModalVisibleAction = () => {
   };
 };
 
-export const changeCheckedStatusAction = (id, isChangeCheckedStatus) => {
+export const changeCheckedStatusAction = (id, isChangeCheckedStatus, checkedIdList) => {
   return dispatch => {
+    dispatch(addOrRemoveTheCheckedItemIdToListActionCreator(id));
     chengeCheckedStatusRequest(id, isChangeCheckedStatus)
       .then(() => getAllDataRequest())
       .then(data => {
         dispatch(isShowAllDeleteCompletedButtonActionCreator(
-          checkIsShowAllDeleteCompletedButton(data)
+          checkIsShowAllDeleteCompletedButton(checkedIdList), 
+          checkCompletedBtnIsAbled(data, checkedIdList)
         ));
         dispatch(updateDataActionCreator(data));
       });
@@ -101,23 +101,19 @@ export const changeAllCheckedStatusAction = (isAllChecked) => {
     changeAllCheckedStatusRequest(isAllChecked)
       .then(() => getAllDataRequest())
       .then(data => {
-        dispatch(isShowAllDeleteCompletedButtonActionCreator(
-          checkIsShowAllDeleteCompletedButton(data)
-        ));
         dispatch(changeAllCheckedStatusActionCreator(isAllChecked));
         dispatch(updateDataActionCreator(data));
       });
   };
 };
 
-export const isShowAllDeleteCompletedButtonAction = (isShowAllDeleteCompletedButton) => {
-  return dispatch => 
-    dispatch(isShowAllDeleteCompletedButtonActionCreator(isShowAllDeleteCompletedButton));
+const checkIsShowAllDeleteCompletedButton = (checkedIdList) => {
+  return checkedIdList.length > 0;
 };
 
-const checkIsShowAllDeleteCompletedButton = (data) => {
-  const filtedData = data.filter(item => {
-    return item.checked === true;
+const checkCompletedBtnIsAbled = (data, checkedIdList) => {
+  const dataFilted = data.filter(item => {
+    return checkedIdList.includes(item.id) && item.completed === false;
   });
-  return filtedData.length > 0;
+  return dataFilted.length > 0;
 };

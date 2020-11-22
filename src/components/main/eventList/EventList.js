@@ -32,7 +32,7 @@ function EventList(props) {
         <div>
           <Checkbox 
             checked={record.checked}
-            onClick={e => handleCheckBoxClick(e, record.id, props.data)}
+            onClick={e => handleCheckBoxClick(e, record.id, props.checkedIdList)}
           />
         </div>
     },
@@ -75,9 +75,9 @@ function EventList(props) {
     e.target.blur();
   };
 
-  const handleCheckBoxClick = (e, id) => {
+  const handleCheckBoxClick = (e, id, checkedIdList) => {
     abandomBlurAfterCheckboxChecked(e);
-    props.singleCheckBoxClick(id, true);
+    props.singleCheckBoxClick(id, true, checkedIdList);
   };
 
   const handleAllSelectClick = (isAllChecked) => {
@@ -107,10 +107,10 @@ function EventList(props) {
         columns={columns}
         dataSource={props.events}
       />
-      {props.isShowAllDeleteCompletedButton && 
-      <div>
-        <Button>全部删除</Button>
-        <Button>全部完成</Button>
+      {props.isShowAllDeleteCompletedButton[0] && 
+      <div className='deleteCompleteBtn'>
+        <Button type='primary'>全部删除</Button>
+        <Button type='primary' disabled={!props.isShowAllDeleteCompletedButton[1]}>全部完成</Button>
       </div>
       }
     </div>
@@ -121,7 +121,8 @@ const mapStateToProps = (state) => {
   return {
     checked: state.checked,
     data: state.data,
-    isShowAllDeleteCompletedButton: state.isShowAllDeleteCompletedButton
+    checkedIdList: state.checkedIdList,
+    isShowAllDeleteCompletedButton: state.isShowAllDeleteCompletedButton,
   };
 };
 
@@ -133,8 +134,8 @@ const mapDispatchToProps = (dispatch) => {
     changeStatusById: (id, completed, timeStamp) => {
       dispatch(changeStatusByIdAction(id, completed, timeStamp));
     },
-    singleCheckBoxClick: (id, isChangeCheckedStatus=true) => {
-      dispatch(changeCheckedStatusAction(id, isChangeCheckedStatus));
+    singleCheckBoxClick: (id, isChangeCheckedStatus=true, checkedIdList) => {
+      dispatch(changeCheckedStatusAction(id, isChangeCheckedStatus, checkedIdList));
     },
     selectAllCheckboxClick: (isAllChecked) => {
       dispatch(changeAllCheckedStatusAction(isAllChecked));
