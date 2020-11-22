@@ -30,9 +30,6 @@ function reducer(state, action) {
   case types.ALL_CHECKED_STATUS:
     return { ...state, checked: !action.isAllChecked };
 
-  case types.IS_SHOW_ALL_DELETE_COMPLETED_BUTTON:
-    return { ...state, isShowAllDeleteCompletedButton: action.isShowAllDeleteCompletedButton };
-
   case types.ADD_OR_REMOVE_CHECKED_EVENT_ID: {
     let newCheckedIdList = state.checkedIdList;
     if (state.checkedIdList.includes(action.id)) {
@@ -61,7 +58,7 @@ function reducer(state, action) {
     return { ...state, checkedIdList: initialCheckedIdList };
   }
 
-  case types.INITIAL_SHOW_DELETE_AND_COMPLETE_BTN: {
+  case types.IS_SHOW_ALL_DELETE_COMPLETED_BUTTON: {
     const checkedIdList = state.checkedIdList;
     const isShowAllDeleteCompletedButton = checkIsShowAllDeleteCompletedButton(checkedIdList);
     const isCompleteButtonAbled = checkCompletedBtnIsAbled(state.data, checkedIdList);

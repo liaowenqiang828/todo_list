@@ -40,15 +40,6 @@ export const changeAllCheckedStatusActionCreator = (isAllChecked) => {
   };
 };
 
-export const isShowAllDeleteCompletedButtonActionCreator = (
-  isShowAllDeleteCompletedButton,
-  isCompletedBtnAbled) => {
-  return {
-    type: types.IS_SHOW_ALL_DELETE_COMPLETED_BUTTON,
-    isShowAllDeleteCompletedButton: [isShowAllDeleteCompletedButton, isCompletedBtnAbled]
-  };
-};
-
 export const addOrRemoveTheCheckedItemIdToListActionCreator = (id) => {
   return {
     type: types.ADD_OR_REMOVE_CHECKED_EVENT_ID,
@@ -69,8 +60,8 @@ export const initialCheckedIdListActionCreator = () => {
   };
 };
 
-export const initialShowAllDeleteCompletedButtonActionCreator = () => {
+export const isShowAllDeleteCompletedButtonActionCreator = () => {
   return {
-    type: types.INITIAL_SHOW_DELETE_AND_COMPLETE_BTN
+    type: types.IS_SHOW_ALL_DELETE_COMPLETED_BUTTON
   };
 };

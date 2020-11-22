@@ -9,4 +9,3 @@ export const IS_SHOW_ALL_DELETE_COMPLETED_BUTTON = 'is show all delete completed
 export const ADD_OR_REMOVE_CHECKED_EVENT_ID = 'add or remove the checked event id';
 export const ADD_OR_REMOVE_ALL_ITEMS_ID = 'add or remove all items id';
 export const INITIAL_CHECKED_LIST = 'initial checked list';
-export const INITIAL_SHOW_DELETE_AND_COMPLETE_BTN = 'initial show detele and complete button';

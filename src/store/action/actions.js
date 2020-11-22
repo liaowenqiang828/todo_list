@@ -3,11 +3,10 @@ import { updateDataActionCreator,
   modalInputActionCreator,
   changeModalVisibleActionCreator, 
   changeAllCheckedStatusActionCreator, 
-  isShowAllDeleteCompletedButtonActionCreator, 
   addOrRemoveTheCheckedItemIdToListActionCreator, 
   addOrRemoveAllItemIdToListActionCreator, 
   initialCheckedIdListActionCreator, 
-  initialShowAllDeleteCompletedButtonActionCreator } from './actionCreators';
+  isShowAllDeleteCompletedButtonActionCreator } from './actionCreators';
 import { message } from 'antd';
 import { addEventDataRequest, 
   changeEventStatusByIdRequest, 
@@ -23,8 +22,7 @@ export const getAllDataAction = () => {
       .then(data => {
         dispatch(updateDataActionCreator(data));
         dispatch(initialCheckedIdListActionCreator());
-
-        dispatch(initialShowAllDeleteCompletedButtonActionCreator());
+        dispatch(isShowAllDeleteCompletedButtonActionCreator());
       })
       .catch(error => message.info(error.message));
   };
@@ -87,33 +85,26 @@ export const changeModalVisibleAction = () => {
   };
 };
 
-export const changeCheckedStatusAction = (id, isChangeCheckedStatus, checkedIdList) => {
+export const changeCheckedStatusAction = (id, isChangeCheckedStatus) => {
   return dispatch => {
     dispatch(addOrRemoveTheCheckedItemIdToListActionCreator(id));
     chengeCheckedStatusRequest(id, isChangeCheckedStatus)
       .then(() => getAllDataRequest())
       .then(data => {
-        dispatch(isShowAllDeleteCompletedButtonActionCreator(
-          checkIsShowAllDeleteCompletedButton(checkedIdList), 
-          checkCompletedBtnIsAbled(data, checkedIdList)
-        ));
+        dispatch(isShowAllDeleteCompletedButtonActionCreator());
         dispatch(updateDataActionCreator(data));
       });
   };
 };
 
-export const changeAllCheckedStatusAction = (isAllChecked, checkedIdList) => {
+export const changeAllCheckedStatusAction = (isAllChecked) => {
   return dispatch => {
-    dispatch(addOrRemoveAllItemIdToListActionCreator(isAllChecked));
     changeAllCheckedStatusRequest(isAllChecked)
       .then(() => getAllDataRequest())
       .then(data => {
         dispatch(changeAllCheckedStatusActionCreator(isAllChecked));
-
-        dispatch(isShowAllDeleteCompletedButtonActionCreator(
-          checkIsShowAllDeleteCompletedButton(checkedIdList), 
-          checkCompletedBtnIsAbled(data, checkedIdList)
-        ));
+        dispatch(addOrRemoveAllItemIdToListActionCreator(isAllChecked));
+        dispatch(isShowAllDeleteCompletedButtonActionCreator());
         dispatch(updateDataActionCreator(data));
       });
   };

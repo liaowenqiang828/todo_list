@@ -21,7 +21,7 @@ function EventList(props) {
       title: <div>
         <Checkbox 
           checked={props.checked}
-          onClick={() => handleAllSelectClick(props.checked, props.checkedIdList)} 
+          onClick={() => handleAllSelectClick(props.checked)} 
         >
           全选
         </Checkbox>
@@ -32,7 +32,7 @@ function EventList(props) {
         <div>
           <Checkbox 
             checked={record.checked}
-            onClick={e => handleCheckBoxClick(e, record.id, props.checkedIdList)}
+            onClick={e => handleCheckBoxClick(e, record.id)}
           />
         </div>
     },
@@ -75,13 +75,13 @@ function EventList(props) {
     e.target.blur();
   };
 
-  const handleCheckBoxClick = (e, id, checkedIdList) => {
+  const handleCheckBoxClick = (e, id) => {
     abandomBlurAfterCheckboxChecked(e);
-    props.singleCheckBoxClick(id, true, checkedIdList);
+    props.singleCheckBoxClick(id, true);
   };
 
-  const handleAllSelectClick = (isAllChecked, checkedIdList) => {
-    props.selectAllCheckboxClick(isAllChecked, checkedIdList);
+  const handleAllSelectClick = (isAllChecked) => {
+    props.selectAllCheckboxClick(isAllChecked);
   };
 
   const handleDeleteClick = (id) => {
@@ -134,11 +134,11 @@ const mapDispatchToProps = (dispatch) => {
     changeStatusById: (id, completed, timeStamp) => {
       dispatch(changeStatusByIdAction(id, completed, timeStamp));
     },
-    singleCheckBoxClick: (id, isChangeCheckedStatus=true, checkedIdList) => {
-      dispatch(changeCheckedStatusAction(id, isChangeCheckedStatus, checkedIdList));
+    singleCheckBoxClick: (id, isChangeCheckedStatus=true) => {
+      dispatch(changeCheckedStatusAction(id, isChangeCheckedStatus));
     },
-    selectAllCheckboxClick: (isAllChecked, checkedIdList) => {
-      dispatch(changeAllCheckedStatusAction(isAllChecked, checkedIdList));
+    selectAllCheckboxClick: (isAllChecked) => {
+      dispatch(changeAllCheckedStatusAction(isAllChecked));
     }
   };
 };
