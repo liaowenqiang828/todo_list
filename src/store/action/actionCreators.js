@@ -65,3 +65,9 @@ export const isShowAllDeleteCompletedButtonActionCreator = () => {
     type: types.IS_SHOW_ALL_DELETE_COMPLETED_BUTTON
   };
 };
+
+export const deleteAllEventsByIdsActionCreator = () => {
+  return {
+    type: types.DELETE_ALL_EVENTS_BY_IDS
+  };
+};

@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import { deleteEventByIdAction } from '../../../store/action/actions';
 import { changeStatusByIdAction , 
   changeCheckedStatusAction, 
-  changeAllCheckedStatusAction } from '../../../store/action/actions';
+  changeAllCheckedStatusAction, 
+  deleteAllEventsByIdsAction } from '../../../store/action/actions';
 import EditEvent from '../editEvent/EditEvent';
 
 function EventList(props) {
@@ -92,6 +93,10 @@ function EventList(props) {
     props.changeStatusById(id, completed, timeStamp);
   };
 
+  const deleteAllEventsByIds = (checkedIdList) => {
+    props.deleteAllEventsByIds(checkedIdList);
+  };
+
   return (
     <div className={styles.main}>
       <Table 
@@ -109,8 +114,18 @@ function EventList(props) {
       />
       {props.isShowAllDeleteCompletedButton[0] && 
       <div className='deleteCompleteBtn'>
-        <Button type='primary'>全部删除</Button>
-        <Button type='primary' disabled={!props.isShowAllDeleteCompletedButton[1]}>全部完成</Button>
+        <Button 
+          type='primary' 
+          onClick={() => deleteAllEventsByIds(props.checkedIdList)}
+        >
+          全部删除
+        </Button>
+        <Button 
+          type='primary' 
+          disabled={!props.isShowAllDeleteCompletedButton[1]}
+        >
+          全部完成
+        </Button>
       </div>
       }
     </div>
@@ -139,6 +154,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     selectAllCheckboxClick: (isAllChecked) => {
       dispatch(changeAllCheckedStatusAction(isAllChecked));
+    },
+    deleteAllEventsByIds: (checkedIdList) => {
+      dispatch(deleteAllEventsByIdsAction(checkedIdList));
     }
   };
 };

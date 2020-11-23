@@ -65,6 +65,9 @@ function reducer(state, action) {
     return { ...state, 
       isShowAllDeleteCompletedButton: [isShowAllDeleteCompletedButton, isCompleteButtonAbled] };
   }
+
+  case types.DELETE_ALL_EVENTS_BY_IDS: 
+    return { ...state, checkedIdList: [] };
     
   default:
     return state;

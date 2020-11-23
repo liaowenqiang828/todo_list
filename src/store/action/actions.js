@@ -6,7 +6,8 @@ import { updateDataActionCreator,
   addOrRemoveTheCheckedItemIdToListActionCreator, 
   addOrRemoveAllItemIdToListActionCreator, 
   initialCheckedIdListActionCreator, 
-  isShowAllDeleteCompletedButtonActionCreator } from './actionCreators';
+  isShowAllDeleteCompletedButtonActionCreator, 
+  deleteAllEventsByIdsActionCreator } from './actionCreators';
 import { message } from 'antd';
 import { addEventDataRequest, 
   changeEventStatusByIdRequest, 
@@ -14,7 +15,8 @@ import { addEventDataRequest,
   editEventRequest, 
   getAllDataRequest,
   changeAllCheckedStatusRequest,
-  chengeCheckedStatusRequest } from '../../utils/http/axios';
+  chengeCheckedStatusRequest, 
+  deleteAllEventsByIdsRequest } from '../../utils/http/axios';
 
 export const getAllDataAction = () => {
   return (dispatch) => {
@@ -104,6 +106,18 @@ export const changeAllCheckedStatusAction = (isAllChecked) => {
       .then(data => {
         dispatch(changeAllCheckedStatusActionCreator(isAllChecked));
         dispatch(addOrRemoveAllItemIdToListActionCreator(isAllChecked));
+        dispatch(isShowAllDeleteCompletedButtonActionCreator());
+        dispatch(updateDataActionCreator(data));
+      });
+  };
+};
+
+export const deleteAllEventsByIdsAction = (checkedIdList) => {
+  return dispatch => {
+    deleteAllEventsByIdsRequest(checkedIdList)
+      .then(() => getAllDataRequest())
+      .then(data => {
+        dispatch(deleteAllEventsByIdsActionCreator());
         dispatch(isShowAllDeleteCompletedButtonActionCreator());
         dispatch(updateDataActionCreator(data));
       });

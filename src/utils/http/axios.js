@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { BASE_URL, ALL_DATA_PATH, EVENT_ITEM_PATH } from '../../constant/url';
+import qs from 'qs';
+import { BASE_URL, ALL_DATA_PATH, EVENT_ITEM_PATH, IDS } from '../../constant/url';
 
 export const getAllDataRequest = () => {
   return axios.get(BASE_URL + ALL_DATA_PATH)
@@ -65,6 +66,19 @@ export const changeAllCheckedStatusRequest = (isAllChecked) => {
     method: 'PATCH',
     params: {
       isAllChecked
+    }
+  });
+};
+
+export const deleteAllEventsByIdsRequest = (checkedIdList) => {
+  return axios({
+    url: BASE_URL + IDS,
+    method: 'delete',
+    params: {
+      checkedIdList
+    },
+    paramsSerializer: params => {
+      return qs.stringify(params, { indices: false });
     }
   });
 };
