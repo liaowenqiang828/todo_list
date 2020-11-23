@@ -71,3 +71,9 @@ export const deleteAllEventsByIdsActionCreator = () => {
     type: types.DELETE_ALL_EVENTS_BY_IDS
   };
 };
+
+export const completeAllEventsByidsActionCreator = () => {
+  return {
+    type: types.COMPLETE_ALL_EVENTS_BY_IDS
+  };
+};

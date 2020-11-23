@@ -7,7 +7,8 @@ import { updateDataActionCreator,
   addOrRemoveAllItemIdToListActionCreator, 
   initialCheckedIdListActionCreator, 
   isShowAllDeleteCompletedButtonActionCreator, 
-  deleteAllEventsByIdsActionCreator } from './actionCreators';
+  deleteAllEventsByIdsActionCreator, 
+  completeAllEventsByidsActionCreator } from './actionCreators';
 import { message } from 'antd';
 import { addEventDataRequest, 
   changeEventStatusByIdRequest, 
@@ -16,7 +17,8 @@ import { addEventDataRequest,
   getAllDataRequest,
   changeAllCheckedStatusRequest,
   chengeCheckedStatusRequest, 
-  deleteAllEventsByIdsRequest } from '../../utils/http/axios';
+  deleteAllEventsByIdsRequest, 
+  completeAllEventsByidsRequest } from '../../utils/http/axios';
 
 export const getAllDataAction = () => {
   return (dispatch) => {
@@ -120,6 +122,18 @@ export const deleteAllEventsByIdsAction = (checkedIdList) => {
         dispatch(deleteAllEventsByIdsActionCreator());
         dispatch(isShowAllDeleteCompletedButtonActionCreator());
         dispatch(updateDataActionCreator(data));
+      });
+  };
+};
+
+export const completeAllEventsByidsAction = (checkedIdList) => {
+  return dispatch => {
+    completeAllEventsByidsRequest(checkedIdList)
+      .then(() => getAllDataRequest())
+      .then(data => {
+        dispatch(completeAllEventsByidsActionCreator());
+        dispatch(isShowAllDeleteCompletedButtonActionCreator());
+        dispatch(updateDataActionCreator(data));      
       });
   };
 };

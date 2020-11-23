@@ -7,7 +7,8 @@ import { deleteEventByIdAction } from '../../../store/action/actions';
 import { changeStatusByIdAction , 
   changeCheckedStatusAction, 
   changeAllCheckedStatusAction, 
-  deleteAllEventsByIdsAction } from '../../../store/action/actions';
+  deleteAllEventsByIdsAction, 
+  completeAllEventsByidsAction } from '../../../store/action/actions';
 import EditEvent from '../editEvent/EditEvent';
 
 function EventList(props) {
@@ -97,6 +98,10 @@ function EventList(props) {
     props.deleteAllEventsByIds(checkedIdList);
   };
 
+  const completeAllEventsByids = (checkedIdList) => {
+    props.completeAllEventsByids(checkedIdList);
+  };
+
   return (
     <div className={styles.main}>
       <Table 
@@ -123,6 +128,7 @@ function EventList(props) {
         <Button 
           type='primary' 
           disabled={!props.isShowAllDeleteCompletedButton[1]}
+          onClick={() => completeAllEventsByids(props.checkedIdList)}
         >
           全部完成
         </Button>
@@ -157,6 +163,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteAllEventsByIds: (checkedIdList) => {
       dispatch(deleteAllEventsByIdsAction(checkedIdList));
+    },
+    completeAllEventsByids: (checkedIdList) => {
+      dispatch(completeAllEventsByidsAction(checkedIdList));
     }
   };
 };

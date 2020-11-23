@@ -82,3 +82,16 @@ export const deleteAllEventsByIdsRequest = (checkedIdList) => {
     }
   });
 };
+
+export const completeAllEventsByidsRequest = (checkedIdList) => {
+  return axios({
+    url: BASE_URL + IDS,
+    method: 'patch',
+    params: {
+      checkedIdList
+    },
+    paramsSerializer: params => {
+      return qs.stringify(params, { indices: false });
+    }
+  });
+};

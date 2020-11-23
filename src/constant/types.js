@@ -10,3 +10,4 @@ export const ADD_OR_REMOVE_CHECKED_EVENT_ID = 'add or remove the checked event i
 export const ADD_OR_REMOVE_ALL_ITEMS_ID = 'add or remove all items id';
 export const INITIAL_CHECKED_LIST = 'initial checked list';
 export const DELETE_ALL_EVENTS_BY_IDS = 'delete all events by ids';
+export const COMPLETE_ALL_EVENTS_BY_IDS = 'complete all events by ids';
