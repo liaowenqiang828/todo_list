@@ -126,9 +126,9 @@ export const deleteAllEventsByIdsAction = (checkedIdList) => {
   };
 };
 
-export const completeAllEventsByidsAction = (checkedIdList) => {
+export const completeAllEventsByidsAction = (checkedIdList, timeStamp) => {
   return dispatch => {
-    completeAllEventsByidsRequest(checkedIdList)
+    completeAllEventsByidsRequest(checkedIdList, timeStamp)
       .then(() => getAllDataRequest())
       .then(data => {
         dispatch(completeAllEventsByidsActionCreator());

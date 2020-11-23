@@ -98,8 +98,8 @@ function EventList(props) {
     props.deleteAllEventsByIds(checkedIdList);
   };
 
-  const completeAllEventsByids = (checkedIdList) => {
-    props.completeAllEventsByids(checkedIdList);
+  const completeAllEventsByids = (checkedIdList, timeStamp) => {
+    props.completeAllEventsByids(checkedIdList, timeStamp);
   };
 
   return (
@@ -128,7 +128,7 @@ function EventList(props) {
         <Button 
           type='primary' 
           disabled={!props.isShowAllDeleteCompletedButton[1]}
-          onClick={() => completeAllEventsByids(props.checkedIdList)}
+          onClick={() => completeAllEventsByids(props.checkedIdList, Date.now())}
         >
           全部完成
         </Button>
@@ -164,8 +164,8 @@ const mapDispatchToProps = (dispatch) => {
     deleteAllEventsByIds: (checkedIdList) => {
       dispatch(deleteAllEventsByIdsAction(checkedIdList));
     },
-    completeAllEventsByids: (checkedIdList) => {
-      dispatch(completeAllEventsByidsAction(checkedIdList));
+    completeAllEventsByids: (checkedIdList, timeStamp) => {
+      dispatch(completeAllEventsByidsAction(checkedIdList, timeStamp));
     }
   };
 };
