@@ -71,6 +71,7 @@ export const changeStatusByIdAction = (id, completed, timeStamp) => {
       .then(() => getAllDataRequest())
       .then(data => {
         dispatch(updateDataActionCreator(data));
+        dispatch(isShowAllDeleteCompletedButtonActionCreator());
       });
   };
 };
