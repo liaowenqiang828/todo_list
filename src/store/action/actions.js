@@ -52,9 +52,11 @@ export const addEventData = (eventValue, timeStamp) => {
 
 export const deleteEventByIdAction = (id) => {
   return (dispatch) => {
+    dispatch(addOrRemoveTheCheckedItemIdToListActionCreator(id));
     deleteEventByIdRequest(id)
       .then(() => getAllDataRequest())
       .then(data => {
+        dispatch(isShowAllDeleteCompletedButtonActionCreator());
         dispatch(updateDataActionCreator(data));
       })
       .catch(error => {
